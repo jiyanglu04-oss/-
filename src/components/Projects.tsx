@@ -25,13 +25,13 @@ export default function Projects() {
       case 'AI智能':
         return (
           <div className="absolute inset-0 flex items-center justify-center border-b border-slate-200 overflow-hidden">
-            <img src="/yaoshan-cover.png" alt="药膳智环" className="w-full h-full object-cover" />
+            <img src={`${import.meta.env.BASE_URL}yaoshan-cover.png`} alt="药膳智环" className="w-full h-full object-cover" />
           </div>
         );
       case '竞技':
         return (
           <div className="absolute inset-0 flex items-center justify-center border-b border-slate-200 overflow-hidden">
-            <img src="/zhengda-cover.png" alt="正大杯调研" className="w-full h-full object-cover" />
+            <img src={`${import.meta.env.BASE_URL}zhengda-cover.png`} alt="正大杯调研" className="w-full h-full object-cover" />
           </div>
         );
       case '创业':
@@ -45,7 +45,7 @@ export default function Projects() {
       case '新媒体':
         return (
           <div className="absolute inset-0 flex items-center justify-center border-b border-slate-200 overflow-hidden">
-            <img src="/xhs-profile.jpg" alt="小红书主页" className="w-full h-full object-cover" />
+            <img src={`${import.meta.env.BASE_URL}xhs-profile.jpg`} alt="小红书主页" className="w-full h-full object-cover" />
           </div>
         );
       default:

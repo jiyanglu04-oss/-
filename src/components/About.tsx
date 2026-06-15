@@ -39,7 +39,7 @@ export default function About() {
             <div className="relative group flex-1 rounded-3xl bg-white p-4 border border-slate-200 flex flex-col justify-between overflow-hidden shadow-sm">
               {/* Image / Aesthetic SVG Vector Block */}
               <div className="relative aspect-square md:aspect-auto md:h-[340px] rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden">
-                <img src="/avatar.jpg" alt="头像" className="w-full h-full object-cover rounded-2xl" />
+                <img src={`${import.meta.env.BASE_URL}avatar.jpg`} alt="头像" className="w-full h-full object-cover rounded-2xl" />
 
                 {/* Aesthetic hover card gloss */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-brand-500/0 via-brand-500/0 to-brand-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -142,7 +142,7 @@ export default function About() {
                   <span>与我深入交流</span>
                 </motion.button>
                 <motion.a 
-                  href="/resume.pdf"
+                  href={`${import.meta.env.BASE_URL}resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05, y: -2, boxShadow: '0 8px 24px rgba(0,0,0,0.08)', backgroundColor: '#f8fafc' }}

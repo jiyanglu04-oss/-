@@ -1,0 +1,6 @@
+{
+  "name": "陆机阳个人网站",
+  "description": "暨南大学金融工程专业陆机阳的个人主页与求职简历网站，包含简介、实习经历、项目经历、我的优势、时间线、联系方式等板块。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,4 +1,4 @@
-import { Project, Experience, SkillCategory, TimelineEvent } from './types';
+import { Project, Experience, SkillCategory, TimelineEvent, FuturePlanItem } from './types';
 
 export const personalInfo = {
   name: '陆机阳',
@@ -82,11 +82,11 @@ export const projects: Project[] = [
     actionLabel: '咨询细节',
     description: [
       '市场深度剖析与爆款选品：定量抓取TikTok Shop 与 Shopee 平台的大数据热销榜和趋势上升流。跨站点比较供给端劣势，挖掘出尚未饱和且转化率亮眼的宠物用品分类。',
-      '全链路多店搭建与基础合规：全权制定运营细则与物流链路，零起步完成公司资质获取、跨境全站店铺冷启。利用高效采集脚本在2个月内上架并优化高潜 SKU 100+ 种。',
-      '精细化变现与数据看板监控：高频跟踪后台核心流量转化漏洞链。通过主图差异化设计与短视频投流，针对每日的跳出率、收藏量与转化率进行快速A/B测试。'
+      '店铺搭建与基础合规：制定运营细则与物流链路，零起步完成公司资质获取、跨境全站店铺冷启。利用采集脚本在2个月内上架并优化SKU 100+ 种。',
+      '由于广告投放问题以及平台自然流量问题导致整个创业项目实则并未获得实质性的收益，但是学会如何搭建店铺以及店铺运营全流程。'
     ],
-    tags: ['跨境电商', 'TikTok Shop', '选品逻辑', '数据看板', '运营分析'],
-    impact: '2个月内在严冬竞争中沉淀 100+ SKU 原始货盘积累，验证从分析至盈利的0-1商业闭环'
+    tags: ['跨境电商', 'TikTok Shop', '选品逻辑', 'Shopee', '运营分析'],
+    impact: '两个月内实现店铺从0-1的搭建，并且获得营业执照，主导店铺商品的选品，货源寻找，市场分析，商品上架等多个方面'
   },
   {
     id: 'proj-yaoshan',
@@ -165,9 +165,9 @@ export const skillCategories: SkillCategory[] = [
     description: '全套的拍摄与剪底子。新媒体核心运营、文字包装与多渠道整合爆发能力',
     items: [
       { name: '专业摄影与后期修图 (Lightroom / Photoshop)', level: 95, details: '视觉中国签约，主攻人文/城市等摄影分享' },
-      { name: '剪映 / Premiere 后期剪辑与动效包装', level: 90, details: '产出20+场大型活动高级纪实片，熟练宣发' },
+      { name: '熟练剪映/醒图/秀米等新媒体工具', level: 90, details: '产出共30+活动视频和竞赛项目介绍视频' },
       { name: '新媒体增长运营与精细化私域转化', level: 88, details: '小红书、微信等，日均10+高客单深入建联' },
-      { name: '大型活动全生命周期策划与统筹', level: 85, details: '主导6场百人活动策划、零容忍应急，零事故落地' }
+      { name: '大型活动全生命周期策划与统筹', level: 85, details: '协助策划6场百人级学生活动。实现活动零事故落地' }
     ]
   }
 ];
@@ -226,5 +226,40 @@ export const timelineEvents: TimelineEvent[] = [
     description: '项目实现"线上AI舌诊检测体质-获取体质报告-药食同源建议-线下售卖"的闭环，在项目期间联合珠海中医诊所，为大学生群体售卖药食同源的养生茶等产品盈利达到1w+，项目获得"挑战杯"校级银奖。',
     type: 'project',
     iconName: 'Award'
+  }
+];
+
+export const futurePlans: FuturePlanItem[] = [
+  {
+    id: 'fp-intern',
+    title: '寻找互联网产品/运营暑期实习',
+    timeframe: '2026年暑期',
+    description: '目标进入互联网大厂或高增长创业公司担任产品运营或增长运营实习生，深入了解产品的全生命周期管理及数据驱动增长体系，积累正规化产品运营实战经验。',
+    iconName: 'Briefcase',
+    category: '职业'
+  },
+  {
+    id: 'fp-product',
+    title: '利用Codex等AI软件开拓自媒体新赛道',
+    timeframe: '2026.09 - 2027.06',
+    description: '利用Codex等AI工具实现"选题—素材—剪辑"的自媒体闭环，持续分享关于我个人的求学、实习、职业规划等等想法，目标实现商业盈利。',
+    iconName: 'Rocket',
+    category: '职业'
+  },
+  {
+    id: 'fp-cert',
+    title: '持续学习AI在各个领域的运用',
+    timeframe: '2026 - 2027',
+    description: '学习Codex或Claude Code等AI工具，将平时的工作或者生活场景，开发一些常用的Skills，或者工作流，实现降本增效。',
+    iconName: 'Award',
+    category: '学习'
+  },
+  {
+    id: 'fp-shopee',
+    title: '开拓新的电商方向',
+    timeframe: '2026.06 - 2027',
+    description: '利用已有的店铺搭建和运营经验，在国内市场开拓小红书店铺、抖音店铺、闲鱼店铺等等渠道售卖新的选品。',
+    iconName: 'TrendingUp',
+    category: '创业'
   }
 ];

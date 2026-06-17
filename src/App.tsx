@@ -5,6 +5,7 @@ import About from './components/About';
 import Advantages from './components/Advantages';
 import Projects from './components/Projects';
 import ExperienceTimeline from './components/ExperienceTimeline';
+import FuturePlan from './components/FuturePlan';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -12,7 +13,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sections = ['home', 'about', 'advantages', 'projects', 'experience', 'contact'];
+    const sections = ['home', 'about', 'experience', 'projects', 'advantages', 'future-plan', 'contact'];
     
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 250; // offset to pick upper section
@@ -76,14 +77,17 @@ export default function App() {
         {/* ABOUT ME SECTION */}
         <About />
 
-        {/* ADVANTAGES & SKILLS ASSESSMENTS */}
-        <Advantages />
+        {/* EXPERIENCE TIMELINE TABS */}
+        <ExperienceTimeline />
 
         {/* PROJECTS */}
         <Projects />
 
-        {/* EXPERIENCE TIMELINE TABS */}
-        <ExperienceTimeline />
+        {/* ADVANTAGES & SKILLS ASSESSMENTS */}
+        <Advantages />
+
+        {/* FUTURE PLAN */}
+        <FuturePlan />
 
         {/* RECRUITMENT CONTACT ME */}
         <Contact />

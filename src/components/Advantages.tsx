@@ -124,7 +124,7 @@ export default function Advantages() {
           {[
             { metric: '150w+', label: '小红书总曝光量' },
             { metric: '100+', label: '电商SKU上架' },
-            { metric: '10万+', label: '新媒体实习直接推动营收' },
+            { metric: '10万+', label: '新媒体实习间接推动营收' },
             { metric: '6场', label: '百人级品牌活动策划' },
           ].map((stat, idx) => (
             <motion.div

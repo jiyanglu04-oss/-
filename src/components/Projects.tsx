@@ -36,10 +36,8 @@ export default function Projects() {
         );
       case '创业':
         return (
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-100 via-white to-brand-50 flex items-center justify-center border-b border-slate-200 overflow-hidden">
-            <div className="absolute w-[180px] h-[180px] rounded-full bg-brand-200/40 blur-2xl" />
-            <ShoppingBag className="w-14 h-14 text-brand-600 opacity-70" />
-            <span className="absolute bottom-4 right-4 text-[10px] font-mono text-slate-500">Shopee Multi-site Cloud</span>
+          <div className="absolute inset-0 flex items-center justify-center border-b border-slate-200 overflow-hidden">
+            <img src={`${import.meta.env.BASE_URL}shopee-store.png`} alt="Shopee店铺" className="w-full h-full object-cover" />
           </div>
         );
       case '新媒体':
@@ -182,7 +180,7 @@ export default function Projects() {
                         href={project.link || '#contact'}
                         target={project.link ? '_blank' : undefined}
                         rel={project.link ? 'noopener noreferrer' : undefined}
-                        className="flex items-center gap-1 bg-slate-900 text-white font-semibold text-xs px-4.5 py-2.5 rounded-full shadow-sm hover:bg-slate-800 transition-all duration-200"
+                        className="flex items-center gap-1 bg-slate-900 text-white font-semibold text-xs px-4.5 py-2.5 rounded-full shadow-sm hover:bg-slate-800 transition-all duration-200 whitespace-nowrap"
                       >
                         <span>{project.actionLabel || '咨询细节'}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />

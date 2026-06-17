@@ -38,12 +38,33 @@ export default function About() {
           >
             <div className="relative group flex-1 rounded-3xl bg-white p-4 border border-slate-200 flex flex-col justify-between overflow-hidden shadow-sm">
               {/* Image / Aesthetic SVG Vector Block */}
-              <div className="relative aspect-square md:aspect-auto md:h-[340px] rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden">
-                <img src={`${import.meta.env.BASE_URL}avatar.jpg`} alt="头像" className="w-full h-full object-cover rounded-2xl" />
+              <motion.div
+                className="relative aspect-square md:aspect-auto md:h-[340px] rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+              >
+                <motion.img
+                  src={`${import.meta.env.BASE_URL}avatar.jpg`}
+                  alt="头像"
+                  className="w-full h-full object-cover rounded-2xl"
+                  whileHover={{ scale: 1.06 }}
+                  transition={{ type: 'spring', stiffness: 180, damping: 16 }}
+                />
 
                 {/* Aesthetic hover card gloss */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-brand-500/0 via-brand-500/0 to-brand-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-tr from-brand-500/0 via-brand-400/10 to-brand-400/20 opacity-0"
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                />
+
+                {/* Border glow ring on hover */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl border-2 border-brand-400/0"
+                  whileHover={{ borderColor: 'rgba(56,189,248,0.5)' }}
+                  transition={{ duration: 0.35 }}
+                />
+              </motion.div>
 
               {/* Footer */}
               <div className="pt-4 pb-2 px-2 flex items-center justify-start">

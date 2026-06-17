@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, Loader2, Sparkl
 import { personalInfo } from '../data';
 
 // ====== 替换为你的 Formspree 表单 ID ======
-const FORMSPREE_ID = 'YOUR_FORM_ID';
+const FORMSPREE_ID = 'xgobgqgo';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -179,7 +179,7 @@ export default function Contact() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="陆工 / 合作方" 
+                        placeholder="合作方" 
                         className="w-full text-xs text-slate-900 px-4 py-3 bg-white border border-slate-200 rounded-xl focus:border-brand-500/50 focus:outline-none transition-colors"
                       />
                     </div>
@@ -206,7 +206,7 @@ export default function Contact() {
                       type="text" 
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      placeholder="探讨新媒体投放 / 实习职位邀约" 
+                      placeholder="实习职位邀约" 
                       className="w-full text-xs text-slate-900 px-4 py-3 bg-white border border-slate-200 rounded-xl focus:border-brand-500/50 focus:outline-none transition-colors"
                     />
                   </div>

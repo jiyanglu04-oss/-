@@ -43,3 +43,12 @@ export interface TimelineEvent {
   type: 'education' | 'experience' | 'project' | 'club';
   iconName: string;
 }
+
+export interface FuturePlanItem {
+  id: string;
+  title: string;
+  timeframe: string;
+  description: string;
+  iconName: string;
+  category: '学习' | '职业' | '创业' | '个人';
+}

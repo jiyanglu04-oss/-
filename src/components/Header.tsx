@@ -21,9 +21,10 @@ export default function Header({ activeSection }: HeaderProps) {
   const navItems = [
     { label: '首页', id: 'home' },
     { label: '关于我', id: 'about' },
-    { label: '我的优势', id: 'advantages' },
-    { label: '项目经历', id: 'projects' },
     { label: '实习与时间线', id: 'experience' },
+    { label: '项目经历', id: 'projects' },
+    { label: '我的优势', id: 'advantages' },
+    { label: '未来规划', id: 'future-plan' },
     { label: '联系方式', id: 'contact' },
   ];
 

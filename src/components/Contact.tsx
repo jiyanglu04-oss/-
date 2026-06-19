@@ -1,10 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, Loader2, Sparkles, Star } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare } from 'lucide-react';
 import { personalInfo } from '../data';
-
-// ====== 替换为你的 Formspree 表单 ID ======
-const FORMSPREE_ID = 'xgobgqgo';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,38 +11,20 @@ export default function Contact() {
     message: '',
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    setIsSubmitting(true);
-    setErrorMsg('');
+    const subject = formData.subject || '来自个人网站的留言';
+    const body = `姓名：${formData.name}%0D%0A邮箱：${formData.email}%0D%0A%0D%0A留言内容：%0D%0A${formData.message}`;
 
-    try {
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    // 打开用户的默认邮件客户端
+    window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      if (response.ok) {
-        setIsSuccess(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setErrorMsg('发送失败，请稍后重试或直接通过邮箱联系我');
-      }
-    } catch {
-      setErrorMsg('网络错误，请检查网络后重试');
-    } finally {
-      setIsSubmitting(false);
-    }
+    setIsSuccess(true);
+    setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
   return (
@@ -165,7 +144,7 @@ export default function Contact() {
                 <span>在线发送留言</span>
               </h3>
               <p className="text-xs text-slate-600 mb-6">
-                您可以填写下表给我留言，点击后信息将触达我的控制系统，我会尽快邮件答复。
+                填写下表后点击发送，将自动打开您的邮件客户端（如Outlook、QQ邮箱等），确认发送即可将留言送达我的邮箱。
               </p>
 
               {/* Form details */}
@@ -230,28 +209,14 @@ export default function Contact() {
                 </div>
 
                 <div className="pt-6">
-                  {/* Submit button with glow and dynamic status */}
+                  {/* Submit button */}
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white font-semibold text-xs py-4 rounded-xl shadow-sm hover:bg-slate-800 transition-all cursor-pointer disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white font-semibold text-xs py-4 rounded-xl shadow-sm hover:bg-slate-800 transition-all cursor-pointer"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        <span>正在发送信息...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-3.5 h-3.5" />
-                        <span>发送留言</span>
-                      </>
-                    )}
+                    <Send className="w-3.5 h-3.5" />
+                    <span>发送留言</span>
                   </button>
-
-                  {errorMsg && (
-                    <p className="text-xs text-red-500 mt-3 text-center">{errorMsg}</p>
-                  )}
                 </div>
 
               </form>
@@ -268,9 +233,9 @@ export default function Contact() {
                     <div className="p-4 bg-brand-500/10 rounded-full border border-brand-500/20 mb-4 text-brand-400">
                       <CheckCircle2 className="w-10 h-10 animate-bounce" />
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900 mb-2">感谢您的信任与留言！</h4>
+                    <h4 className="text-lg font-bold text-slate-900 mb-2">邮件客户端已打开！</h4>
                     <p className="text-xs text-slate-600 max-w-sm leading-relaxed mb-6">
-                      我的自动信息接收机已捕获您的留言，已将一封加密存证件分发至我的邮箱。我将在一小时内直接在邮件与您回复探讨！
+                      请在弹出的邮件窗口中确认并点击发送，留言将直接送达我的邮箱（{personalInfo.email}）。我会尽快回复您！
                     </p>
                     
                     <button

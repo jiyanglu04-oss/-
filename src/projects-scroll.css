@@ -1,0 +1,68 @@
+#projects .project-drag-hint {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #92928e;
+  font: 600 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+#projects .project-drag-hint i {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #56565a;
+  border-radius: 50%;
+  color: #f7f7f4;
+  font: normal 24px/1 Arial, sans-serif;
+}
+
+#projects .project-strip-scroll {
+  display: flex !important;
+  grid-template-columns: none !important;
+  gap: 26px;
+  padding: 0 max(3vw, 28px) 22px;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(3vw, 28px);
+  overscroll-behavior-inline: contain;
+  cursor: grab;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: #55555a #171719;
+}
+
+#projects .project-strip-scroll.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+#projects .project-strip-scroll::-webkit-scrollbar { height: 7px; }
+#projects .project-strip-scroll::-webkit-scrollbar-track { background: #171719; }
+#projects .project-strip-scroll::-webkit-scrollbar-thumb { background: #55555a; border-radius: 999px; }
+
+#projects .project-strip-scroll .project-poster {
+  display: block !important;
+  flex: 0 0 clamp(380px, 44vw, 620px);
+  min-width: 0 !important;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+#projects .project-strip-scroll .project-poster a,
+#projects .project-filters button {
+  user-select: auto;
+}
+
+@media (max-width: 820px) {
+  #projects .project-drag-hint { display: none; }
+  #projects .project-strip-scroll { gap: 16px; padding-inline: 20px; scroll-padding-inline: 20px; }
+  #projects .project-strip-scroll .project-poster { flex-basis: 84vw; }
+}
+
+@media (max-width: 520px) {
+  #projects .project-strip-scroll .project-poster { flex-basis: 88vw; }
+}

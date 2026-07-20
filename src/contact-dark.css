@@ -1,0 +1,65 @@
+#contact {
+  background: #0b0b0d !important;
+  color: #ffffff;
+  border-top-color: #0b0b0d;
+}
+
+#contact h2,
+#contact h3,
+#contact h4,
+#contact label,
+#contact .text-slate-900,
+#contact .text-slate-800,
+#contact .text-slate-700 {
+  color: #ffffff !important;
+}
+
+#contact p,
+#contact .text-slate-600,
+#contact .text-slate-500,
+#contact .text-slate-400 {
+  color: #a8a8aa !important;
+}
+
+#contact .bg-white,
+#contact .bg-slate-50,
+#contact .bg-slate-100 {
+  background: #151517 !important;
+}
+
+#contact .border-slate-200,
+#contact .border-slate-300,
+#contact .border-brand-200 {
+  border-color: #343438 !important;
+}
+
+#contact input,
+#contact textarea {
+  background: #0f0f11 !important;
+  border-color: #3a3a3f !important;
+  color: #ffffff !important;
+}
+
+#contact input::placeholder,
+#contact textarea::placeholder {
+  color: #6f6f74;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+  border-color: #ffffff !important;
+}
+
+#contact button[type="submit"] {
+  background: #ffffff !important;
+  color: #111111 !important;
+}
+
+#contact button[type="submit"]:hover {
+  background: #21a7e6 !important;
+  color: #ffffff !important;
+}
+
+#contact .bg-brand-50 {
+  background: #202023 !important;
+}

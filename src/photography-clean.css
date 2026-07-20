@@ -1,0 +1,10 @@
+.book-photo-visual {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.book-photo-visual img {
+  background: transparent !important;
+  box-shadow: none !important;
+}

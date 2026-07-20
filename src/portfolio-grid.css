@@ -1,0 +1,46 @@
+.portfolio-grid-tabs { border-bottom: 1px solid #cfcfca; margin-bottom: 20px; }
+.portfolio-grid-board { border-color: #cfcfca; }
+.portfolio-grid-board .portfolio-board-intro { background: #f1f0eb; }
+
+.portfolio-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: #cfcfca;
+}
+
+.portfolio-photo-card {
+  min-width: 0;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #f8f8f6;
+  color: #171717;
+  text-decoration: none;
+  transition: background .25s ease;
+}
+
+.portfolio-photo-card:hover { background: #fff; }
+.portfolio-photo-image { min-height: 300px; display: grid; place-items: center; overflow: hidden; background: #efeee9; }
+.portfolio-photo-image img { width: 100%; height: auto; max-height: 560px; display: block; object-fit: contain; transition: transform .35s ease; }
+.portfolio-photo-card:hover img { transform: scale(1.012); }
+.portfolio-photo-meta { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 0 4px 5px; }
+.portfolio-photo-meta > span { color: #999994; font: 9px ui-monospace, monospace; letter-spacing: .14em; }
+.portfolio-photo-meta h4 { margin: 0; font: 500 18px Georgia, "Songti SC", serif; }
+.portfolio-photo-meta p { margin: 4px 0 0; color: #8b8b86; font: 8px ui-monospace, monospace; }
+.portfolio-photo-meta svg { width: 17px; height: 17px; color: #777771; }
+.portfolio-slot-bottom { display: flex; align-items: center; gap: 6px; }
+.portfolio-slot-bottom svg { width: 12px; height: 12px; }
+
+@media (max-width: 1000px) {
+  .portfolio-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .portfolio-grid-tabs { margin-bottom: 12px; }
+  .portfolio-photo-grid { grid-template-columns: 1fr; }
+  .portfolio-photo-card { padding: 10px; }
+  .portfolio-photo-image { min-height: 0; }
+  .portfolio-photo-image img { max-height: none; }
+}

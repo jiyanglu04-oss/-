@@ -1,0 +1,13 @@
+.editing-link-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: #cfcfca; }
+.editing-link-card { position: relative; min-height: 310px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; background: #f8f8f6; color: #171717; text-decoration: none; transition: .25s ease; }
+.editing-link-card:hover { background: #171717; color: #fff; }
+.editing-link-number { color: #999994; font: 9px ui-monospace, monospace; letter-spacing: .16em; }
+.editing-link-play { width: 74px; height: 74px; display: grid; place-items: center; border: 1px solid #c8c8c3; border-radius: 50%; transition: .25s ease; }
+.editing-link-play svg { width: 24px; height: 24px; margin-left: 3px; }
+.editing-link-card:hover .editing-link-play { border-color: #fff; background: #fff; color: #171717; }
+.editing-link-copy small { color: #969690; font: 8px ui-monospace, monospace; letter-spacing: .16em; }
+.editing-link-copy h4 { margin: 8px 0 7px; font: 500 26px Georgia, "Songti SC", serif; }
+.editing-link-copy p { margin: 0; color: #82827d; font-size: 10px; }
+.editing-link-card:hover .editing-link-copy p { color: #bdbdb8; }
+.editing-link-external { position: absolute; right: 25px; top: 25px; width: 17px; height: 17px; }
+@media (max-width: 700px) { .editing-link-grid { grid-template-columns: 1fr; } .editing-link-card { min-height: 270px; } }

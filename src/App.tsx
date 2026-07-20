@@ -1,99 +1,50 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import Advantages from './components/Advantages';
 import Projects from './components/Projects';
+import Portfolio from './components/Portfolio';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import FuturePlan from './components/FuturePlan';
-import Contact from './components/Contact';
+import ClosingPage from './components/ClosingPage';
 import Footer from './components/Footer';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sections = ['home', 'about', 'experience', 'projects', 'advantages', 'future-plan', 'contact'];
-    
+    const sections = ['home', 'about', 'experience', 'projects', 'portfolio', 'advantages', 'future-plan', 'closing'];
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 250; // offset to pick upper section
-      
-      // Special check for bottom of page to auto-activate contact section
-      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
-      if (isAtBottom) {
-        setActiveSection('contact');
-        return;
-      }
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+      const current = sections.find((id) => {
+        const element = document.getElementById(id);
+        if (!element) return false;
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 150 && rect.bottom > 150;
+      });
+      if (current) setActiveSection(current);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Run initially to capture current view
     handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 90; // matches header capsule offset
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const emailMe = () => { window.location.href = 'mailto:1346514923@qq.com'; };
 
   return (
-    <div className="bg-slate-50 min-h-screen text-slate-900 font-sans antialiased selection:bg-brand-200 selection:text-slate-900">
-      {/* Dynamic Header */}
+    <div className="site-shell">
       <Header activeSection={activeSection} />
-
-      {/* Main Orchestrations */}
       <main>
-        {/* HERO LANDING GROUP */}
-        <Hero 
-          onViewProjects={() => handleScrollToSection('projects')}
-          onContactMe={() => handleScrollToSection('contact')}
-        />
-
-        {/* ABOUT ME SECTION */}
+        <Hero onViewProjects={() => scrollTo('projects')} onContactMe={emailMe} />
         <About />
-
-        {/* EXPERIENCE TIMELINE TABS */}
         <ExperienceTimeline />
-
-        {/* PROJECTS */}
         <Projects />
-
-        {/* ADVANTAGES & SKILLS ASSESSMENTS */}
+        <Portfolio />
         <Advantages />
-
-        {/* FUTURE PLAN */}
         <FuturePlan />
-
-        {/* RECRUITMENT CONTACT ME */}
-        <Contact />
+        <ClosingPage onEmail={emailMe} />
       </main>
-
-      {/* FOOTER COLLATERAL */}
       <Footer />
     </div>
   );

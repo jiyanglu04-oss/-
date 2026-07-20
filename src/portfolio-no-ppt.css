@@ -1,0 +1,34 @@
+.portfolio-book-tabs {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.portfolio-book-tabs > button:nth-child(2) {
+  display: none;
+}
+
+.portfolio-book-tabs > button:nth-child(3) .portfolio-tab-index,
+.portfolio-book-tabs > button:nth-child(4) .portfolio-tab-index,
+.portfolio-book-tabs > button:nth-child(5) .portfolio-tab-index {
+  font-size: 0;
+}
+
+.portfolio-book-tabs > button:nth-child(3) .portfolio-tab-index::after {
+  content: "02";
+  font-size: 9px;
+}
+
+.portfolio-book-tabs > button:nth-child(4) .portfolio-tab-index::after {
+  content: "03";
+  font-size: 9px;
+}
+
+.portfolio-book-tabs > button:nth-child(5) .portfolio-tab-index::after {
+  content: "04";
+  font-size: 9px;
+}
+
+@media (max-width: 1060px) {
+  .portfolio-book-tabs {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  }
+}

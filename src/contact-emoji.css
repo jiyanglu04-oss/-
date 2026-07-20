@@ -1,0 +1,40 @@
+#contact .space-y-6 > div > div:first-child svg {
+  display: none;
+}
+
+#contact .space-y-6 > div > div:first-child::before {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+}
+
+#contact .space-y-6 > div:nth-child(1) > div:first-child::before {
+  content: "📧";
+}
+
+#contact .space-y-6 > div:nth-child(2) > div:first-child::before {
+  content: "📱";
+}
+
+#contact .space-y-6 > div:nth-child(3) > div:first-child::before {
+  content: "📍";
+}
+
+#contact h3.flex svg {
+  display: none;
+}
+
+#contact h3.flex::before {
+  content: "💬";
+  font-size: 20px;
+  line-height: 1;
+}
+
+#contact button[type="submit"] svg {
+  display: none;
+}
+
+#contact button[type="submit"]::before {
+  content: "📤";
+  font-size: 17px;
+}

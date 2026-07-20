@@ -1,0 +1,7 @@
+#experience .flex.flex-col.gap-10 > div:first-child p.text-sm.font-medium span:last-child {
+  font-size: 14px;
+}
+
+#experience .flex.flex-col.gap-10 > div:first-child p.text-sm.font-medium span:last-child::after {
+  content: none;
+}

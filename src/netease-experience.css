@@ -1,0 +1,34 @@
+#experience .flex.flex-col.gap-10 > div:first-child {
+  padding-top: 350px;
+}
+
+#experience .flex.flex-col.gap-10 > div:first-child::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 294px;
+  border: 1px solid #e6d27e;
+  border-radius: 14px;
+  background: #fff7d6 url('/netease-media-camp.png') center 43% / cover no-repeat;
+}
+
+#experience .flex.flex-col.gap-10 > div:first-child > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  #experience .flex.flex-col.gap-10 > div:first-child {
+    padding-top: 270px;
+  }
+
+  #experience .flex.flex-col.gap-10 > div:first-child::before {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    height: 220px;
+  }
+}

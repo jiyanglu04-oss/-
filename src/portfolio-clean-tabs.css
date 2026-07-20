@@ -1,0 +1,7 @@
+.portfolio-book-tabs .portfolio-tab-index {
+  display: none;
+}
+
+.portfolio-book-tabs button {
+  grid-template-columns: auto 1fr;
+}

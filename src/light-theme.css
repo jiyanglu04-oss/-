@@ -1,0 +1,43 @@
+.editorial-projects {
+  background: #f8f8f6 !important;
+  color: #171717;
+  border-top: 1px solid #deded9;
+}
+
+.editorial-projects .section-kicker.light,
+.editorial-projects .projects-note { color: #888882; }
+.editorial-projects .project-arrows button { border-color: #9b9b96; color: #171717; }
+.editorial-projects .project-arrows button:hover { background: #171717; color: #fff; }
+.editorial-projects .project-filters button { border-color: #c9c9c4; color: #696964; }
+.editorial-projects .project-filters button.active { background: #171717; border-color: #171717; color: #fff; }
+
+#contact {
+  background: #f8f8f6 !important;
+  color: #171717;
+  border-top: 1px solid #deded9;
+}
+
+#contact h2, #contact h3, #contact h4, #contact label,
+#contact .text-slate-900, #contact .text-slate-800, #contact .text-slate-700 { color: #171717 !important; }
+#contact p, #contact .text-slate-600, #contact .text-slate-500, #contact .text-slate-400 { color: #70706b !important; }
+#contact .bg-white { background: #fff !important; }
+#contact .bg-slate-50, #contact .bg-slate-100, #contact .bg-brand-50 { background: #f1f0eb !important; }
+#contact .border-slate-200, #contact .border-slate-300, #contact .border-brand-200 { border-color: #d2d2cd !important; }
+#contact input, #contact textarea { background: #f8f8f6 !important; border-color: #c9c9c4 !important; color: #171717 !important; }
+#contact input::placeholder, #contact textarea::placeholder { color: #999994; }
+#contact input:focus, #contact textarea:focus { border-color: #171717 !important; }
+#contact button[type="submit"] { background: #171717 !important; color: #fff !important; }
+#contact button[type="submit"]:hover { background: #21a7e6 !important; }
+
+footer { background: #f1f0eb !important; color: #696964 !important; border-top: 1px solid #d2d2cd !important; }
+footer [class*="text-transparent"] { color: #171717 !important; }
+
+/* Update the first internship title without changing the second experience. */
+#experience .flex.flex-col.gap-10 > div:first-child p.text-sm.font-medium span:last-child {
+  font-size: 0;
+}
+
+#experience .flex.flex-col.gap-10 > div:first-child p.text-sm.font-medium span:last-child::after {
+  content: "用户增长实习生";
+  font-size: 14px;
+}

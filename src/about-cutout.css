@@ -1,0 +1,9 @@
+.identity-photo {
+  background: #e6e2d6;
+}
+
+.identity-photo img {
+  object-fit: contain;
+  object-position: center bottom;
+  filter: none;
+}

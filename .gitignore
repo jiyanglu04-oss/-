@@ -15,3 +15,6 @@ coverage/
 /*.png
 /*.jpg
 /*.jpeg
+
+# 视频走外部存储（GitHub Release / 未来的 CDN），不进仓库
+public/*.mp4

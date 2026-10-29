@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { personalInfo } from '../data';
+import { mediaUrl } from '../media';
 import Folio3D from './Folio3D';
 
 const BASE = import.meta.env.BASE_URL;
@@ -24,25 +25,25 @@ const editingTypes = ['口播', '混剪', '宣传'] as const;
 type EditingType = (typeof editingTypes)[number];
 
 const speakingWorks: EditingWork[] = [
-  { title: '口播作品 01', platform: '本地视频 · 微信视频号', url: 'talk-01.mp4' },
-  { title: '口播作品 02', platform: '本地视频 · 小红书', url: 'talk-02.mp4' },
-  { title: '口播作品 03', platform: '本地视频 · 小红书', url: 'talk-03.mp4' },
+  { title: '口播作品 01', platform: '微信视频号', url: 'talk-01.mp4' },
+  { title: '口播作品 02', platform: '小红书', url: 'talk-02.mp4' },
+  { title: '口播作品 03', platform: '小红书', url: 'talk-03.mp4' },
 ];
 
 const mixedWorks: EditingWork[] = [
-  { title: '混剪作品 01', platform: '本地视频 · 小红书', url: 'mixed-01.mp4' },
-  { title: '混剪作品 02', platform: '本地视频 · 小红书', url: 'mixed-02.mp4' },
-  { title: '混剪作品 03', platform: '本地视频 · 小红书', url: 'mixed-03.mp4' },
-  { title: '混剪作品 04', platform: '本地视频 · 小红书', url: 'mixed-04.mp4' },
+  { title: '混剪作品 01', platform: '小红书', url: 'mixed-01.mp4' },
+  { title: '混剪作品 02', platform: '小红书', url: 'mixed-02.mp4' },
+  { title: '混剪作品 03', platform: '小红书', url: 'mixed-03.mp4' },
+  { title: '混剪作品 04', platform: '小红书', url: 'mixed-04.mp4' },
 ];
 
 const promotionWorks: EditingWork[] = [
-  { title: '宣传剪辑作品 01', platform: '本地视频 · 微信视频号', url: 'promotion-link-01.mp4' },
-  { title: '宣传剪辑作品 02', platform: '本地视频 · 微信视频号', url: 'promotion-link-02.mp4' },
-  { title: '宣传剪辑作品 03', platform: '本地视频 · 微信视频号', url: 'promotion-link-03.mp4' },
-  { title: '宣传剪辑作品 04', platform: '本地视频 · 微信视频号', url: 'promotion-link-04.mp4' },
-  { title: '药膳智环项目宣传视频', platform: '本地视频 · 作品 01', url: 'promotion-video-01.mp4' },
-  { title: '药膳智环项目宣传视频', platform: '本地视频 · 作品 02', url: 'promotion-video-02.mp4' },
+  { title: '宣传剪辑作品 01', platform: '微信视频号', url: 'promotion-link-01.mp4' },
+  { title: '宣传剪辑作品 02', platform: '微信视频号', url: 'promotion-link-02.mp4' },
+  { title: '宣传剪辑作品 03', platform: '微信视频号', url: 'promotion-link-03.mp4' },
+  { title: '宣传剪辑作品 04', platform: '微信视频号', url: 'promotion-link-04.mp4' },
+  { title: '药膳智环项目宣传视频', platform: '药膳智环 · 作品 01', url: 'promotion-video-01.mp4' },
+  { title: '药膳智环项目宣传视频', platform: '药膳智环 · 作品 02', url: 'promotion-video-02.mp4' },
 ];
 
 const photoWorks: ImageWork[] = [
@@ -198,7 +199,7 @@ export default function Portfolio({ onContactMe }: { onContactMe?: () => void })
           {editingWorks.map((work, index) => (
             <article className="folio-clip" key={work.url}>
               <video controls preload="metadata" playsInline aria-label={work.title}>
-                <source src={`${BASE}${work.url}`} type="video/mp4" />
+                <source src={mediaUrl(work.url)} type="video/mp4" />
                 您的浏览器不支持视频播放。
               </video>
               <div className="folio-clip-cap">

@@ -14,7 +14,7 @@ export const personalInfo = {
   avatarDescription: 'Available for work',
   bio: '我于暨南大学攻读金融工程专业。热衷于探索AI和商业运营的深度结合，擅长使用 Cursor，Codex，CodeBuddy和 Coze 等 AI 编程辅助与工作流工具，能够将新媒体流量思维形态、数据科学模型（如 SPSSPRO、Excel 数据挖掘）与产品原型开发（Figma、墨刀）相融合。具备小红书百万级内容曝光创作和运营经验、多场大型活动协助统筹与企业运营优化落地经验，致力于通过高效敏捷的运营、商业化运作与精细化数据驱动，实现价值突围。',
   socials: [
-    { name: '个人网站', url: 'https://jiyanglu04oss.github.io/-/', icon: 'Globe' },
+    { name: '个人网站', url: 'https://jiyanglu04-oss.github.io/', icon: 'Globe' },
     { name: 'Email', url: 'mailto:1346514923@qq.com', icon: 'Mail' },
     { name: 'WeChat', url: '#', icon: 'MessageCircle', detail: '15813688227' }
   ],

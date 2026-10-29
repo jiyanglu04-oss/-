@@ -1,0 +1,188 @@
+import { useRef, useState } from 'react';
+import { Award, Briefcase, Target } from 'lucide-react';
+import { futurePlans } from '../data';
+import Sprout3D from './Sprout3D';
+
+const getIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'Briefcase': return <Briefcase />;
+    case 'Award': return <Award />;
+    default: return <Target />;
+  }
+};
+
+type Tone = 'lime' | 'blue' | 'pink' | 'yellow';
+
+type TreeLeaf = {
+  id: string;
+  /** 挂在哪条规划枝上 */
+  planId: string;
+  label: string;
+  /** 在描述里对应的关键词，点叶子时在卡片里高亮 */
+  keyword: string;
+  tone: Tone;
+  /** SVG 画布坐标（viewBox 1100 × 640），HTML 叶子按同一套坐标百分比定位 */
+  x: number;
+  y: number;
+  rot: number;
+};
+
+/** 八片叶子 = 两条规划（职业 / 学习）各自拆出来的四个落点，文字全部取自规划原文。
+    坐标沿着树冠轮廓往外推 30 单位，所以每片叶子都「长」在冠边上。 */
+const LEAVES: TreeLeaf[] = [
+  { id: 'lf-product', planId: 'fp-intern', label: '产品运营', keyword: '产品运营', tone: 'lime', x: 198, y: 121, rot: -6 },
+  { id: 'lf-growth', planId: 'fp-intern', label: '增长运营', keyword: '增长运营', tone: 'blue', x: 163, y: 227, rot: 4 },
+  { id: 'lf-data', planId: 'fp-intern', label: '数据驱动', keyword: '数据驱动', tone: 'yellow', x: 231, y: 331, rot: -4 },
+  { id: 'lf-lifecycle', planId: 'fp-intern', label: '全生命周期', keyword: '全生命周期', tone: 'pink', x: 387, y: 401, rot: 3 },
+  { id: 'lf-aitool', planId: 'fp-cert', label: 'AI 工具', keyword: 'Codex', tone: 'lime', x: 892, y: 121, rot: 6 },
+  { id: 'lf-skills', planId: 'fp-cert', label: 'Skills', keyword: 'Skills', tone: 'blue', x: 927, y: 227, rot: -4 },
+  { id: 'lf-flow', planId: 'fp-cert', label: '工作流', keyword: '工作流', tone: 'pink', x: 859, y: 331, rot: 4 },
+  { id: 'lf-boost', planId: 'fp-cert', label: '降本增效', keyword: '降本增效', tone: 'yellow', x: 703, y: 401, rot: -3 },
+];
+
+const VIEW_W = 1100;
+const VIEW_H = 640;
+
+export default function FuturePlan() {
+  const [active, setActive] = useState(0);
+  const focusRef = useRef<number | null>(null);
+
+  const leaf = LEAVES[active];
+  const plan = futurePlans.find((item) => item.id === leaf.planId) ?? futurePlans[0];
+  const siblings = LEAVES.filter((item) => item.planId === plan.id);
+
+  return (
+    <section id="future-plan" className="future-section tree-section">
+      <div className="future-shell">
+        <header className="future-heading" data-reveal>
+          <div className="nb-head-core">
+            <p className="section-kicker section-title-english">FUTURE DIRECTION</p>
+            <h2>下一步，继续把想法做成结果。</h2>
+            <p>这是一棵还在长的树。点一片叶子，就是我近期想做的一件事。</p>
+          </div>
+          <Sprout3D focusRef={focusRef} />
+        </header>
+
+        <div className="tree-layout" data-reveal>
+          <div className="tree-art">
+            <svg className="tree-svg" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} role="img" aria-label="下一步规划树：左侧是职业方向，右侧是学习方向">
+              {/* 地面 */}
+              <ellipse className="tree-ground" cx="550" cy="612" rx="196" ry="15" />
+              <g className="tree-grass" aria-hidden="true">
+                <path d="M 404 612 c -6 -22 -2 -38 4 -50" />
+                <path d="M 418 612 c 2 -16 10 -28 20 -34" />
+                <path d="M 690 612 c 6 -24 2 -40 -4 -52" />
+                <path d="M 676 612 c -2 -16 -10 -28 -20 -34" />
+              </g>
+
+              {/* 树干：从地面收到 470，再分两杈顶进树冠 */}
+              <path className="tree-trunk" d="M 500 616 C 506 560 518 512 526 470 L 574 470 C 582 512 594 560 600 616 Z" />
+              <g className="tree-bark" aria-hidden="true">
+                <path d="M 536 606 C 534 558 538 514 544 478" />
+                <path d="M 562 598 C 566 558 566 518 562 482" />
+                <path d="M 518 560 C 520 528 524 500 528 484" />
+              </g>
+
+              {/* 分叉：露在树冠下方的这两截，是「一棵树」而不是「一根柱子顶着球」的关键 */}
+              <g className="tree-branches" aria-hidden="true">
+                <path d="M 540 478 C 512 452 486 428 458 406" />
+                <path d="M 560 478 C 588 452 614 428 642 406" />
+              </g>
+
+              {/* 树冠：底边压出叶子般的起伏，整体轻摆 */}
+              <g className="tree-sway">
+                <path
+                  className="tree-canopy"
+                  d="M 296 386 C 244 366 204 322 218 276 C 182 238 194 182 238 166
+                     C 230 116 270 74 320 78 C 346 32 408 16 450 48 C 490 12 558 8 598 38
+                     C 650 12 714 28 734 68 C 790 62 836 98 836 144 C 886 160 900 214 870 256
+                     C 906 296 890 346 840 366 C 828 396 786 412 748 400 C 700 416 660 410 636 392
+                     C 596 408 552 404 528 386 C 486 400 442 396 418 380 C 372 396 300 404 296 386 Z"
+                />
+
+                {/* 冠内散落的小叶片：只做纹理，不加描边，避免几团大椭圆被看成一张脸 */}
+                <g className="tree-clusters" aria-hidden="true">
+                  <path transform="translate(338 142) rotate(-26)" d="M 0 0 C 10 11 10 26 0 37 C -10 26 -10 11 0 0 Z" />
+                  <path transform="translate(432 104) rotate(12)" d="M 0 0 C 9 10 9 24 0 34 C -9 24 -9 10 0 0 Z" />
+                  <path transform="translate(512 148) rotate(-9)" d="M 0 0 C 11 12 11 27 0 38 C -11 27 -11 12 0 0 Z" />
+                  <path transform="translate(612 98) rotate(24)" d="M 0 0 C 9 10 9 23 0 33 C -9 23 -9 10 0 0 Z" />
+                  <path transform="translate(700 138) rotate(-18)" d="M 0 0 C 10 11 10 25 0 36 C -10 25 -10 11 0 0 Z" />
+                  <path transform="translate(766 214) rotate(16)" d="M 0 0 C 9 10 9 23 0 33 C -9 23 -9 10 0 0 Z" />
+                  <path transform="translate(322 236) rotate(28)" d="M 0 0 C 10 11 10 26 0 37 C -10 26 -10 11 0 0 Z" />
+                  <path transform="translate(414 276) rotate(-20)" d="M 0 0 C 11 12 11 28 0 40 C -11 28 -11 12 0 0 Z" />
+                  <path transform="translate(540 306) rotate(8)" d="M 0 0 C 10 11 10 26 0 37 C -10 26 -10 11 0 0 Z" />
+                  <path transform="translate(648 288) rotate(-28)" d="M 0 0 C 9 10 9 24 0 34 C -9 24 -9 10 0 0 Z" />
+                  <path transform="translate(726 330) rotate(18)" d="M 0 0 C 9 9 9 22 0 31 C -9 22 -9 9 0 0 Z" />
+                  <path transform="translate(470 352) rotate(-12)" d="M 0 0 C 9 10 9 23 0 33 C -9 23 -9 10 0 0 Z" />
+                </g>
+
+                {/* 细枝：从冠内伸到叶柄，短、细、带弧，别做成长辐条 */}
+                <g className="tree-twigs" aria-hidden="true">
+                  <path d="M 330 155 C 300 148 250 138 203 126" />
+                  <path d="M 308 221 C 275 224 225 227 168 228" />
+                  <path d="M 350 285 C 320 305 275 322 236 329" />
+                  <path d="M 447 328 C 432 357 408 385 390 396" />
+                  <path d="M 760 155 C 790 148 840 138 887 126" />
+                  <path d="M 782 221 C 815 224 865 227 922 228" />
+                  <path d="M 740 285 C 770 305 815 322 854 329" />
+                  <path d="M 643 328 C 658 357 682 385 700 396" />
+                </g>
+              </g>
+            </svg>
+
+            <div className="tree-leaves">
+              {LEAVES.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`tree-leaf tree-leaf--${item.tone}${index === active ? ' is-active' : ''}`}
+                  style={{
+                    left: `${(item.x / VIEW_W) * 100}%`,
+                    top: `${(item.y / VIEW_H) * 100}%`,
+                    ['--leaf-rot' as string]: `${item.rot}deg`,
+                    ['--leaf-i' as string]: `${index}`,
+                  }}
+                  aria-pressed={index === active}
+                  onPointerEnter={() => { focusRef.current = index; }}
+                  onPointerLeave={() => { focusRef.current = null; }}
+                  onFocus={() => { focusRef.current = index; }}
+                  onBlur={() => { focusRef.current = null; }}
+                  onClick={() => setActive(index)}
+                >
+                  <span className="tree-leaf-inner">
+                    <i>{String(index + 1).padStart(2, '0')}</i>
+                    {item.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <aside className="tree-card" key={leaf.id}>
+            <header className="tree-card-top">
+              <span className="tree-card-icon" aria-hidden="true">{getIcon(plan.iconName)}</span>
+              <span className="tree-card-cat">{plan.category}</span>
+              <time className="tree-card-time">{plan.timeframe}</time>
+            </header>
+
+            <h3>{plan.title}</h3>
+            <p>{plan.description}</p>
+
+            <ul className="tree-card-keys">
+              {siblings.map((item) => (
+                <li key={item.id} className={item.id === leaf.id ? 'is-active' : ''}>
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+
+            <footer className="tree-card-foot">
+              <span>枝叶 {String(active + 1).padStart(2, '0')} / {String(LEAVES.length).padStart(2, '0')}</span>
+              <span>点其他叶子看别的方向</span>
+            </footer>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}

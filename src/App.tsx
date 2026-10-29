@@ -9,43 +9,54 @@ import ExperienceTimeline from './components/ExperienceTimeline';
 import FuturePlan from './components/FuturePlan';
 import ClosingPage from './components/ClosingPage';
 import Footer from './components/Footer';
+import MotionDirector from './components/MotionDirector';
+import TiltDirector from './components/TiltDirector';
+import ContactCardModal from './components/ContactCardModal';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
     const sections = ['home', 'about', 'experience', 'projects', 'portfolio', 'advantages', 'future-plan', 'closing'];
-    const handleScroll = () => {
-      const current = sections.find((id) => {
-        const element = document.getElementById(id);
-        if (!element) return false;
-        const rect = element.getBoundingClientRect();
-        return rect.top <= 150 && rect.bottom > 150;
-      });
-      if (current) setActiveSection(current);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActiveSection(visible.target.id);
+      },
+      { rootMargin: '-18% 0px -58% 0px', threshold: [0.05, 0.2, 0.45] },
+    );
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  const emailMe = () => { window.location.href = 'mailto:1346514923@qq.com'; };
+  const openContactCard = () => setIsContactOpen(true);
 
   return (
     <div className="site-shell">
-      <Header activeSection={activeSection} />
+      <MotionDirector />
+      <TiltDirector />
+      <Header activeSection={activeSection} onContactMe={openContactCard} />
       <main>
-        <Hero onViewProjects={() => scrollTo('projects')} onContactMe={emailMe} />
-        <About />
+        <Hero onViewProjects={() => scrollTo('projects')} onContactMe={openContactCard} />
+        <About onContactMe={openContactCard} />
         <ExperienceTimeline />
         <Projects />
-        <Portfolio />
+        <Portfolio onContactMe={openContactCard} />
         <Advantages />
         <FuturePlan />
-        <ClosingPage onEmail={emailMe} />
+        <ClosingPage onContactMe={openContactCard} />
       </main>
-      <Footer />
+      <Footer onContactMe={openContactCard} />
+      <ContactCardModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   );
 }

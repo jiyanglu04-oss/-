@@ -6,7 +6,9 @@ if (neteaseExperience) {
   neteaseExperience.role = '内容运营（线上实践）';
   neteaseExperience.period = '2026.6 - 2026.7';
 } else {
-  experiences.unshift({
+  const qianyiExperienceIndex = experiences.findIndex((experience) => experience.id === 'exp-qy');
+
+  experiences.splice(qianyiExperienceIndex >= 0 ? qianyiExperienceIndex + 1 : 0, 0, {
     id: 'exp-netease-camp',
     company: '网易传媒校园创作夏令营',
     role: '内容运营（线上实践）',

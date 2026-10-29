@@ -1,3 +1,23 @@
+/** 项目详情（点开项目卡后的案例页） */
+export interface ProjectCase {
+  /** 一句话定位 */
+  tagline: string;
+  /** 卡片角标，如 VIBE CODING */
+  badge?: string;
+  /** 开发背景，按段落 */
+  background: string[];
+  /** 技术栈分组 */
+  techStack: { group: string; items: string[] }[];
+  /** 顶部关键数字 */
+  stats: { value: string; label: string }[];
+  /** 功能鸟瞰：一条一个要点，可带截图；wide = 图里是文字表格，需要整宽才看得清 */
+  features: { title: string; desc: string; shot?: string; wide?: boolean }[];
+  /** 工程亮点 */
+  highlights: { title: string; desc: string }[];
+  /** 需要在界面上如实说明的边界 */
+  note?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -5,10 +25,14 @@ export interface Project {
   period: string;
   description: string[];
   tags: string[];
-  category: '创业'|'竞技'|'AI智能'|'新媒体';
+  category: '创业' | '竞技' | 'AI智能' | '新媒体' | 'Vibe Coding';
   award?: string;
   impact?: string;
   demoUrl?: string;
+  link?: string;
+  actionLabel?: string;
+  /** 有 case 的项目：点卡片打开详情，而不是跳外链 */
+  caseStudy?: ProjectCase;
 }
 
 export interface Experience {

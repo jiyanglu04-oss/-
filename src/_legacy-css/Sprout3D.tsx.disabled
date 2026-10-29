@@ -1,0 +1,18 @@
+import { Suspense, lazy, type RefObject } from 'react';
+
+const SproutScene = lazy(() => import('./SproutScene'));
+
+type Props = {
+  focusRef: RefObject<number | null>;
+};
+
+/** 「下一步」标题旁的 3D 嫩芽（轻量外壳，不 import three）。 */
+export default function Sprout3D({ focusRef }: Props) {
+  return (
+    <div className="nb-head-orn sprout-orn" aria-hidden="true">
+      <Suspense fallback={null}>
+        <SproutScene focusRef={focusRef} />
+      </Suspense>
+    </div>
+  );
+}

@@ -3,7 +3,16 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { experiences } from './data';
 import './netease-experience-2026';
-import './index.css'; import './layout-fixes.css'; import './cutout.css'; import './final-fixes.css'; import './color-fixes.css'; import './about-cutout.css'; import './contact-dark.css'; import './contact-emoji.css'; import './portfolio.css'; import './light-theme.css'; import './portfolio-book.css'; import './portfolio-photos.css'; import './projects-dark.css'; import './photography-clean.css'; import './portfolio-grid.css'; import './editing-subcategories.css'; import './editing-links.css'; import './editing-videos.css'; import './operation-cards.css'; import './closing-page.css'; import './netease-role-fix.css'; import './projects-scroll.css';
+import './oppo-experience-2026';
+/* 样式导入顺序：基础层 → 主题层（主题层必须最后，保证优先级最高） */
+import './index.css';
+import './neo-brutalism.css';
+
 const growthInternship = experiences.find((experience) => experience.id === 'exp-qy');
 if (growthInternship) growthInternship.role = '用户增长实习生';
-createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

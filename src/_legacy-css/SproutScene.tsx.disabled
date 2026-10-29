@@ -1,0 +1,69 @@
+import { type RefObject } from 'react';
+import * as THREE from 'three';
+import { useThreeStage } from '../three/useThreeStage';
+import { createBox, createLeaf } from '../three/models';
+import { PALETTE } from '../three/tokens';
+
+type Props = {
+  focusRef: RefObject<number | null>;
+};
+
+/**
+ * 一株嫩芽：土块 + 茎 + 三片叶子。
+ * 和「下一步」这棵大树的意象对上 —— 一边是已经长出来的，一边是刚开始长的。
+ * 悬停任意一片叶子时，三片叶子会一起往外张一档（呼应「展开」）。
+ */
+export default function SproutScene({ focusRef }: Props) {
+  const hostRef = useThreeStage(
+    ({ scene }) => {
+      const rig = new THREE.Group();
+      scene.add(rig);
+
+      const soil = createBox({ width: 1.15, height: 0.18, depth: 0.52, color: PALETTE.ink });
+      soil.position.y = -0.09;
+      rig.add(soil);
+
+      const stem = createBox({ width: 0.085, height: 1.72, depth: 0.085, color: PALETTE.limeDeep });
+      stem.position.y = 0.86;
+      rig.add(stem);
+
+      const specs = [
+        { y: 1.34, rot: 1.02, length: 0.92, color: PALETTE.lime, dir: 1 },
+        { y: 1.16, rot: -1.06, length: 0.8, color: PALETTE.limeDeep, dir: -1 },
+        { y: 1.94, rot: 0.2, length: 0.66, color: PALETTE.paper3, dir: 0 },
+      ];
+
+      const leaves = specs.map((spec, index) => {
+        const hinge = new THREE.Group();
+        hinge.position.set(0, spec.y, 0);
+        const leaf = createLeaf({ length: spec.length, width: spec.length * 0.52, color: spec.color });
+        hinge.add(leaf);
+        rig.add(hinge);
+        return { hinge, base: spec.rot, dir: spec.dir, index };
+      });
+
+      rig.rotation.set(-0.1, 0.32, 0.02);
+
+      let lift = 0;
+
+      return {
+        update({ elapsed, delta, pointer }) {
+          const target = focusRef.current == null ? 0 : 1;
+          lift += (target - lift) * (1 - Math.exp(-delta * 7));
+
+          leaves.forEach(({ hinge, base, dir, index }) => {
+            const sway = Math.sin(elapsed * 1.15 + index * 1.6) * 0.1;
+            hinge.rotation.z = base + sway - dir * lift * 0.18;
+          });
+
+          rig.rotation.y = 0.32 + Math.sin(elapsed * 0.42) * 0.09 + pointer.x * 0.28;
+          rig.rotation.x = -0.1 + Math.sin(elapsed * 0.36) * 0.035 - pointer.y * 0.12;
+          rig.position.y = Math.sin(elapsed * 0.8) * 0.045;
+        },
+      };
+    },
+    { fov: 32, fit: 3.1 },
+  );
+
+  return <div ref={hostRef} className="nb-3d-host" />;
+}

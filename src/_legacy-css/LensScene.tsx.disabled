@@ -1,0 +1,45 @@
+import { type RefObject } from 'react';
+import * as THREE from 'three';
+import { useThreeStage } from '../three/useThreeStage';
+import { createLens } from '../three/models';
+import { PALETTE } from '../three/tokens';
+
+type Props = {
+  focusRef: RefObject<number | null>;
+};
+
+/**
+ * 作品集的镜头：切换分类时，镜头转到对应角度 ——
+ * 四个 Tab 就是四个「镜头」，和「看不同作品」这件事对得上。
+ */
+export default function LensScene({ focusRef }: Props) {
+  const hostRef = useThreeStage(
+    ({ scene }) => {
+      const rig = new THREE.Group();
+      scene.add(rig);
+
+      const lens = createLens({ color: PALETTE.lime, outline: 'ink' });
+      // 侧一点角度：镜头是立体的，正对着看就只剩一个圈
+      lens.rotation.x = 0.5;
+      rig.add(lens);
+
+      let angle = 0;
+
+      return {
+        update({ elapsed, delta, pointer }) {
+          const index = focusRef.current ?? 0;
+          const target = Math.PI / 5 + index * (Math.PI / 2.4);
+          angle += (target - angle) * (1 - Math.exp(-delta * 5));
+
+          lens.rotation.y = angle + Math.sin(elapsed * 0.32) * 0.14 + pointer.x * 0.35;
+          lens.rotation.x = 0.5 + Math.sin(elapsed * 0.5) * 0.06 - pointer.y * 0.18;
+          lens.position.y = Math.sin(elapsed * 0.7) * 0.07;
+          rig.rotation.z = Math.sin(elapsed * 0.24) * 0.05;
+        },
+      };
+    },
+    { fov: 34, fit: 2.5 },
+  );
+
+  return <div ref={hostRef} className="nb-3d-host" />;
+}

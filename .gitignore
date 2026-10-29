@@ -6,3 +6,12 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# 根目录临时文件与素材原图（站点只引用 public/ 下的资源）
+/stop
+/query
+/delete
+/cdp-check.mjs
+/*.png
+/*.jpg
+/*.jpeg

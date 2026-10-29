@@ -1,0 +1,18 @@
+import { Suspense, lazy, type RefObject } from 'react';
+
+const LensScene = lazy(() => import('./LensScene'));
+
+type Props = {
+  focusRef: RefObject<number | null>;
+};
+
+/** 作品集标题行里的镜头（轻量外壳）。 */
+export default function Portfolio3D({ focusRef }: Props) {
+  return (
+    <div className="nb-portfolio-orn" aria-hidden="true">
+      <Suspense fallback={null}>
+        <LensScene focusRef={focusRef} />
+      </Suspense>
+    </div>
+  );
+}

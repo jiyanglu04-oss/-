@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { Menu, X } from 'lucide-react';
-import { personalInfo } from '../data';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 
-interface HeaderProps { activeSection: string; }
+interface HeaderProps {
+  activeSection: string;
+  onContactMe: () => void;
+}
 
-export default function Header({ activeSection }: HeaderProps) {
+const navItems = [
+  { label: '关于', id: 'about' },
+  { label: '经历', id: 'experience' },
+  { label: '项目', id: 'projects' },
+  { label: '作品集', id: 'portfolio' },
+  { label: '优势', id: 'advantages' },
+  { label: '规划', id: 'future-plan' },
+];
+
+export default function Header({ activeSection, onContactMe }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [time, setTime] = useState('');
 
   useEffect(() => {
-    const update = () => setTime(new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }));
-    update();
-    const timer = window.setInterval(update, 30000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  const navItems = [
-    { label: '关于', id: 'about' }, { label: '经历', id: 'experience' },
-    { label: '项目', id: 'projects' }, { label: '作品集', id: 'portfolio' },
-    { label: '优势', id: 'advantages' }, { label: '规划', id: 'future-plan' },
-  ];
+    document.body.classList.toggle('menu-open', isOpen);
+    return () => document.body.classList.remove('menu-open');
+  }, [isOpen]);
 
   const scrollToSection = (id: string) => {
     setIsOpen(false);
@@ -28,30 +29,53 @@ export default function Header({ activeSection }: HeaderProps) {
   };
 
   return (
-    <header className="editorial-header">
-      <div className="editorial-nav">
-        <button className="wordmark" onClick={() => scrollToSection('home')} aria-label="返回首页">
-          <span>Ji</span><i>y</i><span>ang</span><b>.</b>
+    <header className="nb-header">
+      <div className="nb-nav">
+        <button className="nb-wordmark" onClick={() => scrollToSection('home')} aria-label="返回首页">
+          <span className="nb-wordmark-mark" aria-hidden="true">
+            JY
+          </span>
+          <span className="nb-wordmark-text">陆机阳</span>
         </button>
-        <nav className="desktop-nav" aria-label="主导航">
+
+        <nav className="nb-nav-links" aria-label="主导航">
           {navItems.map((item) => (
-            <button key={item.id} onClick={() => scrollToSection(item.id)} className={activeSection === item.id ? 'active' : ''}>{item.label}</button>
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => scrollToSection(item.id)}
+              className={`nb-nav-link${activeSection === item.id ? ' is-active' : ''}`}
+            >
+              {item.label}
+            </button>
           ))}
         </nav>
-        <div className="nav-tools">
-          <span className="time-chip">☼&nbsp; {time}</span>
-          <span className="lang-chip">中</span>
-          <a className="email-button" href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
-        </div>
-        <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">{isOpen ? <X /> : <Menu />}</button>
+
+        <button type="button" className="nb-contact-btn" onClick={onContactMe}>
+          联系我 <ArrowUpRight aria-hidden="true" />
+        </button>
+
+        <button
+          type="button"
+          className="nb-menu-toggle"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-label={isOpen ? '关闭导航' : '打开导航'}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
       </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.nav initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} className="mobile-nav">
-            {navItems.map((item) => <button key={item.id} onClick={() => scrollToSection(item.id)}>{item.label}</button>)}
-          </motion.nav>
-        )}
-      </AnimatePresence>
+
+      {isOpen && (
+        <nav className="nb-mobile-nav" aria-label="移动端主导航">
+          {navItems.map((item) => (
+            <button key={item.id} type="button" className="nb-mobile-link" onClick={() => scrollToSection(item.id)}>
+              <span>{item.label}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </button>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }
